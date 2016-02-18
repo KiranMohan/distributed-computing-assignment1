@@ -58,7 +58,7 @@ messageprog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 }
 
 int
-main (int argc, char **argv)
+rpcServiceMain (int argc, char **argv)
 {
 	register SVCXPRT *transp;
 

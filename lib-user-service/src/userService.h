@@ -22,6 +22,7 @@ extern "C" {
 extern  int * printmessage_1(char **, CLIENT *);
 extern  int * printmessage_1_svc(char **, struct svc_req *);
 extern int messageprog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
+extern int rpcServiceMain (int argc, char **argv);
 
 #else /* K&R C */
 #define PRINTMESSAGE 1
