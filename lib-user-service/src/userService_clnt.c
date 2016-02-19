@@ -9,15 +9,15 @@
 /* Default timeout can be changed using clnt_control() */
 static struct timeval TIMEOUT = { 25, 0 };
 
-int *
-printmessage_1(char **argp, CLIENT *clnt)
+result *
+sign_up_1(user_profile *argp, CLIENT *clnt)
 {
-	static int clnt_res;
+	static result clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
-	if (clnt_call (clnt, PRINTMESSAGE,
-		(xdrproc_t) xdr_wrapstring, (caddr_t) argp,
-		(xdrproc_t) xdr_int, (caddr_t) &clnt_res,
+	if (clnt_call (clnt, SIGN_UP,
+		(xdrproc_t) xdr_user_profile, (caddr_t) argp,
+		(xdrproc_t) xdr_result, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
 	}

@@ -23,21 +23,26 @@ struct result {
 };
 typedef struct result result;
 
-#define MESSAGEPROG 0x20000001
-#define PRINTMESSAGEVERS 1
+struct user_profile {
+	String username;
+	String password;
+};
+typedef struct user_profile user_profile;
+
+#define USER_SERVICE 0x20000001
+#define USER_SERVICE_VERS 1
 
 #if defined(__STDC__) || defined(__cplusplus)
-#define PRINTMESSAGE 1
-extern  int * printmessage_1(char **, CLIENT *);
-extern  int * printmessage_1_svc(char **, struct svc_req *);
-extern int messageprog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
-extern int rpcServiceMain (int argc, char **argv);
+#define SIGN_UP 1
+extern  result * sign_up_1(user_profile *, CLIENT *);
+extern  result * sign_up_1_svc(user_profile *, struct svc_req *);
+extern int user_service_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
-#define PRINTMESSAGE 1
-extern  int * printmessage_1();
-extern  int * printmessage_1_svc();
-extern int messageprog_1_freeresult ();
+#define SIGN_UP 1
+extern  result * sign_up_1();
+extern  result * sign_up_1_svc();
+extern int user_service_1_freeresult ();
 #endif /* K&R C */
 
 /* the xdr functions */
@@ -45,10 +50,12 @@ extern int messageprog_1_freeresult ();
 #if defined(__STDC__) || defined(__cplusplus)
 extern  bool_t xdr_String (XDR *, String*);
 extern  bool_t xdr_result (XDR *, result*);
+extern  bool_t xdr_user_profile (XDR *, user_profile*);
 
 #else /* K&R C */
 extern bool_t xdr_String ();
 extern bool_t xdr_result ();
+extern bool_t xdr_user_profile ();
 
 #endif /* K&R C */
 

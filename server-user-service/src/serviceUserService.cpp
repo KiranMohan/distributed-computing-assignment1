@@ -12,18 +12,28 @@
                             from lib-user-service/user-service.x*/
 using namespace std;
 
-int * printmessage_1_svc(char **msg, struct svc_req *req)
+result * sign_up_1_svc(user_profile *, struct svc_req *)
 {
-   static int result; /* must be static! */
+   static result res; /* must be static! */
 
-   cout << "Message receive [" << *msg << endl;
+   /* free the previous result */
+   res.status = 0;
+   if ( res.resultData != NULL ) {
+       delete res.resultData;
+   }
 
-   result = 1;
-   return (&result);
+   /*
+    * do the work.
+    */
+
+   /* set the results and return */
+   res.resultData = new char[MAXSTRINGLEN];
+   sprintf(res.resultData, "it works");
+   return &res;
 }
 
-int main(int argc, char **argv) {
-    cout << "Starting user service server..." << endl;
-	int result = rpcServiceMain(argc, argv);
-	return 0;
-}
+//int main(int argc, char **argv) {
+//    cout << "Starting user service server..." << endl;
+//	int result = rpcServiceMain(argc, argv);
+//	return 0;
+//}

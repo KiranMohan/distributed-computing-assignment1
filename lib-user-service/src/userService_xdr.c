@@ -10,7 +10,7 @@ xdr_String (XDR *xdrs, String *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_string (xdrs, objp, MAXNAMELEN))
+	 if (!xdr_string (xdrs, objp, MAXSTRINGLEN))
 		 return FALSE;
 	return TRUE;
 }
@@ -23,6 +23,18 @@ xdr_result (XDR *xdrs, result *objp)
 	 if (!xdr_int (xdrs, &objp->status))
 		 return FALSE;
 	 if (!xdr_String (xdrs, &objp->resultData))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_user_profile (XDR *xdrs, user_profile *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_String (xdrs, &objp->username))
+		 return FALSE;
+	 if (!xdr_String (xdrs, &objp->password))
 		 return FALSE;
 	return TRUE;
 }

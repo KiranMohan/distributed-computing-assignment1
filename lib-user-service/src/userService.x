@@ -9,15 +9,20 @@
 
 const MAXSTRINGLEN = 255; /* max length of a string */
 
-typedef string String<MAXNAMELEN>; /* a string */
+typedef string String<MAXSTRINGLEN>; /* a string */
 
 struct result {
     int status; /* 0 -> OK else not OK 8*/
     String resultData;
 };
 
-program MESSAGEPROG {
-   version PRINTMESSAGEVERS {
-     int PRINTMESSAGE(string) = 1;
+struct user_profile {
+    String username;
+    String password;
+};
+
+program USER_SERVICE {
+   version USER_SERVICE_VERS {
+     result SIGN_UP(user_profile userProfile) = 1;
    } = 1;
 } = 0x20000001;

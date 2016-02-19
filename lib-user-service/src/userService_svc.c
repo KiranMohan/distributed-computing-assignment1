@@ -17,10 +17,10 @@
 #endif
 
 static void
-messageprog_1(struct svc_req *rqstp, register SVCXPRT *transp)
+user_service_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
-		char *printmessage_1_arg;
+		user_profile sign_up_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -31,10 +31,10 @@ messageprog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		(void) svc_sendreply (transp, (xdrproc_t) xdr_void, (char *)NULL);
 		return;
 
-	case PRINTMESSAGE:
-		_xdr_argument = (xdrproc_t) xdr_wrapstring;
-		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) printmessage_1_svc;
+	case SIGN_UP:
+		_xdr_argument = (xdrproc_t) xdr_user_profile;
+		_xdr_result = (xdrproc_t) xdr_result;
+		local = (char *(*)(char *, struct svc_req *)) sign_up_1_svc;
 		break;
 
 	default:
@@ -58,19 +58,19 @@ messageprog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 }
 
 int
-rpcServiceMain (int argc, char **argv)
+main (int argc, char **argv)
 {
 	register SVCXPRT *transp;
 
-	pmap_unset (MESSAGEPROG, PRINTMESSAGEVERS);
+	pmap_unset (USER_SERVICE, USER_SERVICE_VERS);
 
 	transp = svcudp_create(RPC_ANYSOCK);
 	if (transp == NULL) {
 		fprintf (stderr, "%s", "cannot create udp service.");
 		exit(1);
 	}
-	if (!svc_register(transp, MESSAGEPROG, PRINTMESSAGEVERS, messageprog_1, IPPROTO_UDP)) {
-		fprintf (stderr, "%s", "unable to register (MESSAGEPROG, PRINTMESSAGEVERS, udp).");
+	if (!svc_register(transp, USER_SERVICE, USER_SERVICE_VERS, user_service_1, IPPROTO_UDP)) {
+		fprintf (stderr, "%s", "unable to register (USER_SERVICE, USER_SERVICE_VERS, udp).");
 		exit(1);
 	}
 
@@ -79,8 +79,8 @@ rpcServiceMain (int argc, char **argv)
 		fprintf (stderr, "%s", "cannot create tcp service.");
 		exit(1);
 	}
-	if (!svc_register(transp, MESSAGEPROG, PRINTMESSAGEVERS, messageprog_1, IPPROTO_TCP)) {
-		fprintf (stderr, "%s", "unable to register (MESSAGEPROG, PRINTMESSAGEVERS, tcp).");
+	if (!svc_register(transp, USER_SERVICE, USER_SERVICE_VERS, user_service_1, IPPROTO_TCP)) {
+		fprintf (stderr, "%s", "unable to register (USER_SERVICE, USER_SERVICE_VERS, tcp).");
 		exit(1);
 	}
 
