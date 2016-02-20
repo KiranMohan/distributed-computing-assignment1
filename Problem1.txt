@@ -10,32 +10,33 @@ Q.1
 Write a distributed application for registering and logging in on a server using RPC
 mechanism. Below are the services provided by the remote procedures that you would write:
 
-	1. Register on the server using a „username‟ and a „password‟.
-	2. Log in to the server using a „username‟ and „password‟.
+	1. Register on the server using a "username" and a "password".
+	2. Log in to the server using a "username" and "password".
 
 The usernames and passwords should be stored in a database. The database can be a file
 which the server can read from and write to. It is up to you to decide how the database should
-be. This database should contain a username „admin‟ by default and a password of your choice.
+be. This database should contain a username "admin" by default and a password of your choice.
 When the server gets request for registration:
 	
 	a. If the username is already in the database, send a message to the client saying
-	   “Username already exists. Try a different one” (without quotes).
+	   "Username already exists. Try a different one" (without quotes).
 	
-	b. If the username is not in the database, send a message to the client saying “Registration
-	   successful” and create a corresponding entry in the database.
+	b. If the username is not in the database, send a message to the client saying "Registration
+	   successful" and create a corresponding entry in the database.
 
 After the registration is successful, then the client program should ask the user if he/she wants
 to login. If yes, then follow the flow mentioned below.
 When the server gets request for a login:
 
-	a. If the username and password match, send a message to the client saying “Welcome
-	   <username>!” (without quotes) where <username> is the username entered by the user.
+	a. If the username and password match, send a message to the client saying "Welcome
+	   <username>!" (without quotes) where <username> is the username entered by the user.
 
-	b. If the username and password match for the user „admin‟, send a message to the client
-	   saying “Welcome admin! Number of registered users are <number_of_users>”, where
+	b. If the username and password match for the user "admin", send a message to the client
+	   saying "Welcome admin! Number of registered users are <number_of_users>", where
 	   <number_of_users> are the number of users in the database.
 
 The program should exit as soon as the flow for login is complete. Write code for printing
 corresponding messages received by the server appropriately. Also, attach screenshots
 showing the ports on which the rpc server and client are bound to.
-
+
+
