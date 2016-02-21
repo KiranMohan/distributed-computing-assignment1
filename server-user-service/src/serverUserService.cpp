@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : serviceUserService.cpp
+// Name        : serverUserService.cpp
 // Author      : Kiran Mohan E
 // Version     : 1.0
 // Copyright   : Copyright (c) 2016 Kiran Mohan E,  All Rights Reserved.
@@ -12,7 +12,7 @@
                             from lib-user-service/user-service.x*/
 using namespace std;
 
-result * sign_up_1_svc(user_profile *, struct svc_req *)
+result * sign_up_1_svc(user_profile * user, struct svc_req * svcReq)
 {
    static result res; /* must be static! */
 
@@ -21,6 +21,8 @@ result * sign_up_1_svc(user_profile *, struct svc_req *)
    if ( res.resultData != NULL ) {
        delete res.resultData;
    }
+
+   cout << "received request to register user " << user->username << endl;
 
    /*
     * do the work.
