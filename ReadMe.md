@@ -7,10 +7,10 @@ This project implements the problem stated in Problem1.txt
 
 Requirements
 ------------
-Linux (Tested on Ubuntu 15.10)  
-Install rpcbind if not installed  
+- Linux (Tested on Ubuntu 15.10)  
+- Install rpcbind if not installed  
     `sudo apt-get install rpcbind`  
-Eclipse to build the project.  
+- Eclipse to build the project.  
 
 Building Project
 ----------------
