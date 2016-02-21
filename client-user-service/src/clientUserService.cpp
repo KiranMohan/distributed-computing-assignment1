@@ -52,10 +52,52 @@ public:
         clnt_destroy(clnt);
     }
 
-    bool signUp(char * username, char * password) {
+    void run() {
+        bool runLoop = true;
+        while (runLoop) {
+            int option = 0;
+            cout << "\nSelect an option: " << endl;
+            cout << "1. Login" << endl;
+            cout << "2. Register" << endl;
+            cout << "3. Exit" << endl;
+            cin >> option;
+
+            switch (option) {
+            case 1:
+                break;
+            case 2:
+                signUp();
+                break;
+            case 3:
+                runLoop = false;
+                break;
+            default:
+                cerr << "Invalid option : " << option
+                        << ". Please enter a valid option." << endl;
+                ;
+            }
+
+        }
+    }
+
+    /**
+     * Send sign up request to server
+     */
+    bool signUp() {
+
+        // get details from user
+        string username;
+        string password;
+        cout << "\n*** User Registration ***" << endl;
+        cout << "Enter username : ";
+        cin >> username;
+        cout << "Enter password (no password masking) : ";
+        cin >> password;
+
+        // create user profile
         user_profile userProfile;
-        userProfile.username = username;
-        userProfile.password = password;
+        userProfile.username = const_cast<char *>(username.c_str());
+        userProfile.password = const_cast<char *>(password.c_str());
         /*
          * Call the remote procedure
          * "sign_up" on the server
@@ -80,12 +122,12 @@ public:
             cerr << "ERROR: Could not sign up " << username << endl;
             return false;
         } else {
-            cout << res->resultData << endl;
+            cout << "--------------------\n"
+                 << res->resultData
+                 << "--------------------\n" << endl;
             return true;
         }
-
     }
-
 };
 
 int main(int argc, char **argv) {
@@ -98,7 +140,7 @@ int main(int argc, char **argv) {
 
     char *server = argv[1];
     ClientUserService userServiceClient(server);
-    userServiceClient.signUp("kiran", "password");
+    userServiceClient.run();
 
     return 0;
 }
