@@ -21,6 +21,7 @@ user_service_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
 		user_profile sign_up_1_arg;
+		user_profile login_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -35,6 +36,12 @@ user_service_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		_xdr_argument = (xdrproc_t) xdr_user_profile;
 		_xdr_result = (xdrproc_t) xdr_result;
 		local = (char *(*)(char *, struct svc_req *)) sign_up_1_svc;
+		break;
+
+	case LOGIN:
+		_xdr_argument = (xdrproc_t) xdr_user_profile;
+		_xdr_result = (xdrproc_t) xdr_result;
+		local = (char *(*)(char *, struct svc_req *)) login_1_svc;
 		break;
 
 	default:

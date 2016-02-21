@@ -24,5 +24,6 @@ struct user_profile {
 program USER_SERVICE {
    version USER_SERVICE_VERS {
      result SIGN_UP(user_profile userProfile) = 1;
+     result LOGIN(user_profile userProfile) = 2;
    } = 1;
 } = 0x20000001;

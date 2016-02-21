@@ -36,12 +36,18 @@ typedef struct user_profile user_profile;
 #define SIGN_UP 1
 extern  result * sign_up_1(user_profile *, CLIENT *);
 extern  result * sign_up_1_svc(user_profile *, struct svc_req *);
+#define LOGIN 2
+extern  result * login_1(user_profile *, CLIENT *);
+extern  result * login_1_svc(user_profile *, struct svc_req *);
 extern int user_service_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
 #define SIGN_UP 1
 extern  result * sign_up_1();
 extern  result * sign_up_1_svc();
+#define LOGIN 2
+extern  result * login_1();
+extern  result * login_1_svc();
 extern int user_service_1_freeresult ();
 #endif /* K&R C */
 

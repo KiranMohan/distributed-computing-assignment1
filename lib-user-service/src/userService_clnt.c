@@ -23,3 +23,18 @@ sign_up_1(user_profile *argp, CLIENT *clnt)
 	}
 	return (&clnt_res);
 }
+
+result *
+login_1(user_profile *argp, CLIENT *clnt)
+{
+	static result clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	if (clnt_call (clnt, LOGIN,
+		(xdrproc_t) xdr_user_profile, (caddr_t) argp,
+		(xdrproc_t) xdr_result, (caddr_t) &clnt_res,
+		TIMEOUT) != RPC_SUCCESS) {
+		return (NULL);
+	}
+	return (&clnt_res);
+}
