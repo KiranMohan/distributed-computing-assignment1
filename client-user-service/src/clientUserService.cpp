@@ -45,6 +45,9 @@ public:
         }
     }
 
+    /**
+     * Destructor closes the connection to the remote service
+     */
     ~ClientUserService() {
         clnt_destroy(clnt);
     }
