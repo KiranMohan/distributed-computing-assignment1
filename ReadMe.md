@@ -9,7 +9,7 @@ Requirements
 ------------
 Linux (Tested on Ubuntu 15.10)  
 Install rpcbind if not installed  
->	`sudo apt-get install rpcbind`  
+    `sudo apt-get install rpcbind`  
 Eclipse to build the project.  
 
 Building Project
