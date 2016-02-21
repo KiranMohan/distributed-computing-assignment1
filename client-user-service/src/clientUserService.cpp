@@ -64,6 +64,7 @@ public:
 
             switch (option) {
             case 1:
+                login();
                 break;
             case 2:
                 signUp();
@@ -124,9 +125,58 @@ public:
         } else {
             cout << "--------------------\n"
                  << res->resultData
-                 << "--------------------\n" << endl;
+                 << "\n--------------------\n" << endl;
             return true;
         }
+    }
+
+    /**
+     * send login request to remote server
+     */
+    bool login() {
+        // get details from user
+        string username;
+        string password;
+        cout << "\n*** Login Form ***" << endl;
+        cout << "Enter username : ";
+        cin >> username;
+        cout << "Enter password (no password masking) : ";
+        cin >> password;
+
+        // create user profile
+        user_profile userProfile;
+        userProfile.username = const_cast<char *>(username.c_str());
+        userProfile.password = const_cast<char *>(password.c_str());
+        /*
+         * Call the remote procedure
+         * "login" on the server
+         */
+        result * res = login_1(&userProfile, clnt);
+        if (res == NULL) {
+            /*
+             * An error occurred while calling
+             * the server.
+             * Print error message and die.
+             */
+
+            clnt_perror(clnt, server);
+            exit(1);
+        }
+
+        /* Okay, we successfully called
+         * the remote procedure.
+         */
+
+        if (res->status != 0) {
+            cerr << "ERROR: Could not login " << username << endl;
+            return false;
+        } else {
+            cout << "--------------------\n"
+                 << res->resultData
+                 << "\n--------------------\n" << endl;
+            return true;
+        }
+
     }
 };
 
